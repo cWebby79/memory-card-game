@@ -1,7 +1,23 @@
-/*
- * Create a list that holds all of your cards
- */
+//Array that holds all of your cards
 const cardList = [fa-diamond, fa-paper-plane-o, fa-anchor, fa-bolt, fa-cube, fa-anchor, fa-leaf, fa-bicycle, fa-diamond, fa-bomb, fa-leaf, fa-bomb, fa-bolt, fa-bicycle, fa-paper-plane-o, fa-cube];
+
+//Card Status
+const card = document.getElementsByClassName("card");
+const showCard = document.getElementsByClassName("card open show");
+const matchedCard = document.getElementsByClassName("card match");
+
+//All cards
+const deck = document.querySelector(".deck");
+
+//Moves
+const moves = 0;
+const counter = document.querySelector(".moves");
+
+//Stars
+const stars = document.querySelectorAll(".fa-star");
+
+// array for opened cards
+let openedCards = [];
 
 
 /*
