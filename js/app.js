@@ -1,16 +1,18 @@
-//Array that holds all of your cards
-const cardList = [fa-diamond, fa-paper-plane-o, fa-anchor, fa-bolt, fa-cube, fa-anchor, fa-leaf, fa-bicycle, fa-diamond, fa-bomb, fa-leaf, fa-bomb, fa-bolt, fa-bicycle, fa-paper-plane-o, fa-cube];
+//Array that holds all cards
+const card = document.getElementsByClassName("card");
+let cardList = [...card];
+console.log(cardList);
 
 //Card Status
-const card = document.getElementsByClassName("card");
-const showCard = document.getElementsByClassName("card open show");
+const cardFaceDown = document.getElementsByClassName("card");
+const cardFaceUp = document.getElementsByClassName("card open show");
 const matchedCard = document.getElementsByClassName("card match");
 
 //All cards
 const deck = document.querySelector(".deck");
 
 //Moves
-const moves = 0;
+let moves = 0;
 const counter = document.querySelector(".moves");
 
 //Stars
@@ -41,6 +43,25 @@ function shuffle(array) {
 
     return array;
 }
+
+//Shuffle cards on page load
+document.body.onload = startGame();
+
+//Shuffel and Start game 
+function startGame(){
+    cardList = shuffle(cardList);
+    //Loop to remove classes cards
+    for (let i = 0; i < cardList.length; i++){
+        deck.innerHTML = "";
+        [].forEach.call(cardList, function(item) {
+            deck.appendChild(item);
+        });
+        cardList[i].classList.remove("show", "open", "match");
+    }
+}
+
+
+
 
 
 /*
