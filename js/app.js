@@ -1,7 +1,6 @@
 //Array that holds all cards
 const card = document.getElementsByClassName("card");
 let cardList = [...card];
-console.log(cardList);
 
 //Card Status
 const cardFaceDown = document.getElementsByClassName("card");
@@ -12,14 +11,15 @@ const matchedCard = document.getElementsByClassName("card match");
 const deck = document.querySelector(".deck");
 
 //Moves
-let moves = 0;
+const moves = 0;
 const counter = document.querySelector(".moves");
 
 //Stars
 const stars = document.querySelectorAll(".fa-star");
 
 // array for opened cards
-let openedCards = [];
+const openedCards = [];
+
 
 
 /*
@@ -62,8 +62,6 @@ function startGame(){
 
 
 
-
-
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -74,3 +72,15 @@ function startGame(){
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+//Show/hide card toggle
+const toggleCard = function (){
+    this.classList.toggle("open");
+    this.classList.toggle("show");
+    
+};
+
+for (let i = 0; i < cardList.length; i++) {
+    cardList[i].addEventListener('click', toggleCard);
+    
+}
