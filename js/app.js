@@ -83,4 +83,8 @@ const toggleCard = function (){
 for (let i = 0; i < cardList.length; i++) {
     cardList[i].addEventListener('click', toggleCard);
     
-}
+};
+
+//Restart game event listener
+const restart = document.querySelector(".fa-repeat");
+restart.addEventListener('click', startGame);
