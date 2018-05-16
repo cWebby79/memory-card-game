@@ -3,7 +3,8 @@ const card = document.getElementsByClassName("card");
 let cardList = [...card];
 
 //Card Status
-const matchedCard = document.getElementsByClassName("card match");
+const matchedCard = document.getElementsByClassName("match");
+let match = [...matchedCard];
 
 //All cards
 const deck = document.querySelector(".deck");
@@ -81,6 +82,7 @@ function toggleCard() {
 for (let i = 0; i < cardList.length; i++) {
 	cardList[i].addEventListener('click', toggleCard);
 	cardList[i].addEventListener('click', cardOpen);
+    cardList[i].addEventListener('click', endGame);
 };
 
 //Add open cards to new array and compare
@@ -145,7 +147,12 @@ function startTimer() {
 	}, 1000);
 };
 
-
+function endGame(){
+    //Stop timer when all cards match
+    if (matchedCard.length == 16){
+        clearInterval(interval);
+    }
+};
 
 //Restart game event listener
 const restart = document.querySelector(".fa-repeat");
