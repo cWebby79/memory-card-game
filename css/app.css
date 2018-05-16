@@ -76,6 +76,10 @@ h1 {
     pointer-events: none;
 }
 
+.deck .card.lock {
+    pointer-events: none;
+}
+
 .deck .card.match {
     cursor: default;
     background: #02ccba;

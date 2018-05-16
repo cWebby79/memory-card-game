@@ -3,8 +3,6 @@ const card = document.getElementsByClassName("card");
 let cardList = [...card];
 
 //Card Status
-const cardFaceDown = document.getElementsByClassName("card");
-const cardFaceUp = document.getElementsByClassName("card open show");
 const matchedCard = document.getElementsByClassName("card match");
 
 //All cards
@@ -19,15 +17,6 @@ const stars = document.querySelectorAll(".fa-star");
 
 // array for opened cards
 let openCards = [];
-
-
-
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -56,7 +45,7 @@ function startGame(){
         [].forEach.call(cardList, function(item) {
             deck.appendChild(item);
         });
-        cardList[i].classList.remove("show", "open", "match");
+        cardList[i].classList.remove("show", "open", "match", "lock");
     }
 }
 
@@ -86,6 +75,7 @@ for (let i = 0; i < cardList.length; i++) {
     
 };
 
+//Add open cards to new array and compare
 function cardOpen() {
     openCards.push(this);
     let numCards = openCards.length;
@@ -98,18 +88,28 @@ function cardOpen() {
     }
 };
 
+//Change class if openCards match and remove from array
 function matched(){
-    openCards[0].classList.remove("show", "open");
-    openCards[1].classList.remove("show", "open");
+    openCards[0].classList.remove("show", "open", "lock");
+    openCards[1].classList.remove("show", "open", "lock");
     openCards[0].classList.add("match");
     openCards[1].classList.add("match");
     openCards = [];
 };
 
+//Change class if openCards do not match and remove from array
+//Also set time out to allow 2nd card to be shown
+//Into "lock" to prevent more than 2 cards being opened
 function unmatched(){
-    openCards[0].classList.remove("show", "open");
-    openCards[1].classList.remove("show", "open");
-    openCards = [];
+    for (let i = 0; i < cardList.length; i++){
+        cardList[i].classList.add("lock");
+        setTimeout(function(){        
+            cardList[i].classList.remove("lock");
+            openCards[0].classList.remove("show", "open", "lock");
+            openCards[1].classList.remove("show", "open", "lock");
+            openCards = [];
+        }, 500);
+    }
 };
 
 //Restart game event listener
