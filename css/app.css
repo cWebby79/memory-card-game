@@ -97,6 +97,10 @@ h1 {
     margin-bottom: 10px;
 }
 
+.timer {
+    display: inline-block;
+}
+
 .score-panel .stars {
     margin: 0;
     padding: 0;
