@@ -9,8 +9,14 @@ const matchedCard = document.getElementsByClassName("card match");
 const deck = document.querySelector(".deck");
 
 //Moves
-let moves = 0;
+let moves;
 const moveCount = document.querySelector(".moves");
+
+//Timer
+let second;
+const timer = document.querySelector(".timer");
+let interval;
+
 
 //Stars
 const stars = document.querySelectorAll(".fa-star");
@@ -20,36 +26,41 @@ let openCards = [];
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+	var currentIndex = array.length,
+		temporaryValue, randomIndex;
 
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
+	while (currentIndex !== 0) {
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex -= 1;
+		temporaryValue = array[currentIndex];
+		array[currentIndex] = array[randomIndex];
+		array[randomIndex] = temporaryValue;
+	}
 
-    return array;
+	return array;
 }
 
 //Shuffle cards on page load
 document.body.onload = startGame();
 
 //Shuffel and Start game 
-function startGame(){
-    cardList = shuffle(cardList);
-    //Loop to remove classes cards
-    for (let i = 0; i < cardList.length; i++){
-        deck.innerHTML = "";
-        [].forEach.call(cardList, function(item) {
-            deck.appendChild(item);
-        });
-        cardList[i].classList.remove("show", "open", "match", "lock");
-    }
-    // reset moves
-    moves = 0;
-    moveCount.innerHTML = moves;
+function startGame() {
+	cardList = shuffle(cardList);
+	//Loop to remove classes cards
+	for (let i = 0; i < cardList.length; i++) {
+		deck.innerHTML = "";
+		[].forEach.call(cardList, function(item) {
+			deck.appendChild(item);
+		});
+		cardList[i].classList.remove("show", "open", "match", "lock");
+	}
+	// reset moves
+	moves = 0;
+	moveCount.innerHTML = moves;
+    //reset time
+    second = 0;
+    timer.innerHTML = "Time: 0 secs";
+    clearInterval(interval);   
 };
 
 
@@ -66,61 +77,72 @@ function startGame(){
  */
 
 //Show/hide card toggle
-function toggleCard(){
-    this.classList.toggle("open");
-    this.classList.toggle("show");
-    
+function toggleCard() {
+	this.classList.toggle("open");
+	this.classList.toggle("show");
+
 };
 
 for (let i = 0; i < cardList.length; i++) {
-    cardList[i].addEventListener('click', toggleCard);
-    cardList[i].addEventListener('click', cardOpen);
-    
+	cardList[i].addEventListener('click', toggleCard);
+	cardList[i].addEventListener('click', cardOpen);
 };
 
 //Add open cards to new array and compare
 function cardOpen() {
-    openCards.push(this);
-    let numCards = openCards.length;
-    if (numCards === 2){
-        moveCounter();
-        if (openCards[0].type === openCards[1].type){
-            matched();
-        } else {
-            unmatched();
-        }
-    }
+	openCards.push(this);
+	let numCards = openCards.length;
+    if (numCards === 2) {
+		moveCounter();
+		if (openCards[0].type === openCards[1].type) {
+			matched();
+		} else {
+			unmatched();
+		}
+	}
 };
 
 //Change class if openCards match and remove from array
-function matched(){
-    openCards[0].classList.remove("show", "open", "lock");
-    openCards[1].classList.remove("show", "open", "lock");
-    openCards[0].classList.add("match");
-    openCards[1].classList.add("match");
-    openCards = [];
+function matched() {
+	openCards[0].classList.remove("show", "open", "lock");
+	openCards[1].classList.remove("show", "open", "lock");
+	openCards[0].classList.add("match");
+	openCards[1].classList.add("match");
+	openCards = [];
 };
 
 //Change class if openCards do not match and remove from array
 //Also set time out to allow 2nd card to be shown
 //Add "lock" to prevent more than 2 cards being opened
-function unmatched(){
-    for (let i = 0; i < cardList.length; i++){
-        cardList[i].classList.add("lock");
-        setTimeout(function(){        
-            cardList[i].classList.remove("lock");
-            openCards[0].classList.remove("show", "open", "lock");
-            openCards[1].classList.remove("show", "open", "lock");
-            openCards = [];
-        }, 500);
-    }
+function unmatched() {
+	for (let i = 0; i < cardList.length; i++) {
+		cardList[i].classList.add("lock");
+
+		setTimeout(function() {
+			cardList[i].classList.remove("lock");
+			openCards[0].classList.remove("show", "open", "lock");
+			openCards[1].classList.remove("show", "open", "lock");
+			openCards = [];
+		}, 500);
+	}
 };
 
 //Move Counter
-function moveCounter(){
-    moves++;
-    moveCount.innerHTML = moves;
+function moveCounter() {
+	moves++;
+	moveCount.innerHTML = moves;
+    if (moves === 1){
+        startTimer();
+    }
 };
+
+//Timer
+function startTimer(){
+    interval = setInterval(function(){
+        timer.innerHTML = "Time: "+second+" secs";
+        second++;
+    },1000);
+}
 
 
 
