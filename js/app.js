@@ -20,6 +20,7 @@ let interval;
 
 //Stars
 const stars = document.querySelectorAll(".fa-star");
+let starList = [...stars];
 
 // array for opened cards
 let openCards = [];
@@ -57,22 +58,16 @@ function startGame() {
 	// reset moves
 	moves = 0;
 	moveCount.innerHTML = moves;
-    //reset time
-    second = 0;
-    timer.innerHTML = "Time: 0 secs";
-    clearInterval(interval);   
+	//reset time
+	second = 0;
+	timer.innerHTML = "Time: 0 secs";
+	clearInterval(interval);
+    //reset stars
+    starList[1].style.display = "inline-block";
+    starList[2].style.display = "inline-block";
 };
 
-
-
 /*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
@@ -92,7 +87,7 @@ for (let i = 0; i < cardList.length; i++) {
 function cardOpen() {
 	openCards.push(this);
 	let numCards = openCards.length;
-    if (numCards === 2) {
+	if (numCards === 2) {
 		moveCounter();
 		if (openCards[0].type === openCards[1].type) {
 			matched();
@@ -131,18 +126,24 @@ function unmatched() {
 function moveCounter() {
 	moves++;
 	moveCount.innerHTML = moves;
-    if (moves === 1){
-        startTimer();
+	if (moves === 1) {
+		startTimer();
+	}
+    //Star rating counter
+    if (moves > 9 && moves <15) {
+        starList[2].style.display = "none";
+    }else if (moves > 15) {
+        starList[1].style.display = "none";
     }
 };
 
 //Timer
-function startTimer(){
-    interval = setInterval(function(){
-        timer.innerHTML = "Time: "+second+" secs";
-        second++;
-    },1000);
-}
+function startTimer() {
+	interval = setInterval(function() {
+		timer.innerHTML = "Time: " + second + " secs";
+		second++;
+	}, 1000);
+};
 
 
 
