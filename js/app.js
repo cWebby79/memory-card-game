@@ -9,8 +9,8 @@ const matchedCard = document.getElementsByClassName("card match");
 const deck = document.querySelector(".deck");
 
 //Moves
-const moves = 0;
-const counter = document.querySelector(".moves");
+let moves = 0;
+const moveCount = document.querySelector(".moves");
 
 //Stars
 const stars = document.querySelectorAll(".fa-star");
@@ -47,7 +47,10 @@ function startGame(){
         });
         cardList[i].classList.remove("show", "open", "match", "lock");
     }
-}
+    // reset moves
+    moves = 0;
+    moveCount.innerHTML = moves;
+};
 
 
 
@@ -80,6 +83,7 @@ function cardOpen() {
     openCards.push(this);
     let numCards = openCards.length;
     if (numCards === 2){
+        moveCounter();
         if (openCards[0].type === openCards[1].type){
             matched();
         } else {
@@ -99,7 +103,7 @@ function matched(){
 
 //Change class if openCards do not match and remove from array
 //Also set time out to allow 2nd card to be shown
-//Into "lock" to prevent more than 2 cards being opened
+//Add "lock" to prevent more than 2 cards being opened
 function unmatched(){
     for (let i = 0; i < cardList.length; i++){
         cardList[i].classList.add("lock");
@@ -111,6 +115,14 @@ function unmatched(){
         }, 500);
     }
 };
+
+//Move Counter
+function moveCounter(){
+    moves++;
+    moveCount.innerHTML = moves;
+};
+
+
 
 //Restart game event listener
 const restart = document.querySelector(".fa-repeat");
