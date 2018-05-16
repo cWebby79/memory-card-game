@@ -18,7 +18,7 @@ const counter = document.querySelector(".moves");
 const stars = document.querySelectorAll(".fa-star");
 
 // array for opened cards
-const openedCards = [];
+let openCards = [];
 
 
 
@@ -74,7 +74,7 @@ function startGame(){
  */
 
 //Show/hide card toggle
-const toggleCard = function (){
+function toggleCard(){
     this.classList.toggle("open");
     this.classList.toggle("show");
     
@@ -82,7 +82,34 @@ const toggleCard = function (){
 
 for (let i = 0; i < cardList.length; i++) {
     cardList[i].addEventListener('click', toggleCard);
+    cardList[i].addEventListener('click', cardOpen);
     
+};
+
+function cardOpen() {
+    openCards.push(this);
+    let numCards = openCards.length;
+    if (numCards === 2){
+        if (openCards[0].type === openCards[1].type){
+            matched();
+        } else {
+            unmatched();
+        }
+    }
+};
+
+function matched(){
+    openCards[0].classList.remove("show", "open");
+    openCards[1].classList.remove("show", "open");
+    openCards[0].classList.add("match");
+    openCards[1].classList.add("match");
+    openCards = [];
+};
+
+function unmatched(){
+    openCards[0].classList.remove("show", "open");
+    openCards[1].classList.remove("show", "open");
+    openCards = [];
 };
 
 //Restart game event listener
