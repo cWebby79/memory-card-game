@@ -153,7 +153,59 @@ h1 {
     padding-bottom: 5%
 }
 
-.final-stars {
-    display: block;
-        
+.final-stars li {
+    display: inline-block;
+}
+
+/*
+ * Responsive Mobiles
+ */
+
+@media screen and (max-width: 380px) {
+    .deck {
+        width: 100%;
+        padding: 10px;
     }
+    .deck .card {
+        width: 20%;
+        height: 75px;
+        margin: 1px;
+    }
+    header {
+        display: none;
+    }
+    .score-panel {
+        padding-top: 10px;
+    }
+    .restart {
+        padding-right: 30px
+    }
+    .message h1 {
+        font-size: 180%;
+    }
+};
+
+/*
+ * Responsive tablets
+ */
+
+@media screen and (min-width: 381px) and (max-width: 700px) {
+    .deck {
+        width: 100%;
+        padding: 10px;
+    }
+    .deck .card {
+        width: 20%;
+        height: 75px;
+        margin: 1px;
+    }
+    .score-panel {
+        padding-top: 10px;
+    }
+    .restart {
+        padding-right: 30px
+    }
+    .message h1 {
+        font-size: 180%;
+    }
+};
