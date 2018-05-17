@@ -53,9 +53,9 @@ document.body.onload = startGame();
 
 //Shuffel and Start game 
 function startGame() {
-    //Close modal if start from completed game
-    model.style.display = "none";
-    //Shuffle function
+	//Close modal if start from completed game
+	model.style.display = "none";
+	//Shuffle function
 	cardList = shuffle(cardList);
 	//Loop to remove classes cards
 	for (let i = 0; i < cardList.length; i++) {
@@ -72,19 +72,17 @@ function startGame() {
 	second = 0;
 	timer.innerHTML = "Time: 0 secs";
 	clearInterval(interval);
-    //reset stars
-    for (let i= 0; i < starList.length; i++) {
-        starList[i].style.visibility = "visible";
-    };
+	//reset stars
+	for (let i = 0; i < starList.length; i++) {
+		starList[i].style.visibility = "visible";
+	};
 }
 
 //Show/hide card toggle
 function toggleCard() {
 	this.classList.toggle("open");
 	this.classList.toggle("show");
-
-};
-
+}
 
 //Add open cards to new array and compare
 function cardOpen() {
@@ -107,7 +105,7 @@ function matched() {
 	openCards[0].classList.add("match");
 	openCards[1].classList.add("match");
 	openCards = [];
-};
+}
 
 //Change class if openCards do not match and remove from array
 //Also set time out to allow 2nd card to be shown
@@ -132,12 +130,12 @@ function moveCounter() {
 	if (moves === 1) {
 		startTimer();
 	}
-    //Star rating counter
-    if (moves > 9 && moves <15) {
-        starList[2].style.visibility = "collapse";
-    }else if (moves > 15) {
-        starList[1].style.visibility = "collapse";
-    }
+	//Star rating counter
+	if (moves > 9 && moves < 15) {
+		starList[2].style.visibility = "collapse";
+	} else if (moves > 15) {
+		starList[1].style.visibility = "collapse";
+	}
 };
 
 //Timer
@@ -146,30 +144,29 @@ function startTimer() {
 		timer.innerHTML = "Time: " + second + " secs";
 		second++;
 	}, 1000);
-};
+}
 
 //When all cards match
-function endGame(){
-    //Stop timer
-    if (matchedCard.length == 16){
-        clearInterval(interval);
-        endTime = timer.innerHTML;
-        let endStar = document.querySelector(".stars").innerHTML;
-        
-        model.style.display = "block";
-        
-        document.querySelector(".f-move").innerHTML = moves;
-        document.querySelector(".f-time").innerHTML = endTime;
-        document.querySelector(".f-star").innerHTML = endStar;
-    }
+function endGame() {
+	//Stop timer
+	if (matchedCard.length == 16) {
+		clearInterval(interval);
+		endTime = timer.innerHTML;
+		let endStar = document.querySelector(".stars").innerHTML;
+
+		model.style.display = "block";
+
+		document.querySelector(".f-move").innerHTML = moves;
+		document.querySelector(".f-time").innerHTML = endTime;
+		document.querySelector(".f-star").innerHTML = endStar;
+	}
 };
 
 //Event listeners
 for (let i = 0; i < cardList.length; i++) {
 	cardList[i].addEventListener('click', toggleCard);
 	cardList[i].addEventListener('click', cardOpen);
-    cardList[i].addEventListener('click', endGame);
-};
-
-    playAgain.addEventListener('click', startGame);
-    restart.addEventListener('click', startGame);
+	cardList[i].addEventListener('click', endGame);
+}
+playAgain.addEventListener('click', startGame);
+restart.addEventListener('click', startGame);
