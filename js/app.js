@@ -73,9 +73,10 @@ function startGame() {
 	timer.innerHTML = "Time: 0 secs";
 	clearInterval(interval);
     //reset stars
-    starList[1].style.display = "inline-block";
-    starList[2].style.display = "inline-block";
-};
+    for (let i= 0; i < starList.length; i++) {
+        starList[i].style.visibility = "visible";
+    };
+}
 
 //Show/hide card toggle
 function toggleCard() {
@@ -133,9 +134,9 @@ function moveCounter() {
 	}
     //Star rating counter
     if (moves > 9 && moves <15) {
-        starList[2].style.display = "none";
+        starList[2].style.visibility = "collapse";
     }else if (moves > 15) {
-        starList[1].style.display = "none";
+        starList[1].style.visibility = "collapse";
     }
 };
 
@@ -152,8 +153,14 @@ function endGame(){
     //Stop timer
     if (matchedCard.length == 16){
         clearInterval(interval);
+        endTime = timer.innerHTML;
+        let endStar = document.querySelector(".stars").innerHTML;
         
         model.style.display = "block";
+        
+        document.querySelector(".f-move").innerHTML = moves;
+        document.querySelector(".f-time").innerHTML = endTime;
+        document.querySelector(".f-star").innerHTML = endStar;
     }
 };
 
