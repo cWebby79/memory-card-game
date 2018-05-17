@@ -118,3 +118,37 @@ h1 {
     float: right;
     cursor: pointer;
 }
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top:0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    text-align: center;
+    background-color: #f4f4f4;
+    margin: 20% auto;
+    padding: 20px;
+    width: 70%;
+    box-shadow: 0 5px 8px o rgba(0,0,0,0.2), 0 7px 20px 0 rgba(0,0,0,0.17);    
+}
+
+.close-btn {
+    border-radius: 10px;
+    box-shadow: 0 5px 8px o rgba(0,0,0,0.2), 0 7px 20px 0 rgba(0,0,0,0.17);
+}
+
+.close-btn:hover {
+    background-color: #b5babc;
+    cursor: pointer;
+}
+
+.results {
+    padding-bottom: 5%
+}

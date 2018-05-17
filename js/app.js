@@ -13,15 +13,21 @@ const deck = document.querySelector(".deck");
 let moves;
 const moveCount = document.querySelector(".moves");
 
+//Restart game
+const restart = document.querySelector(".fa-repeat");
+
 //Timer
 let second;
 const timer = document.querySelector(".timer");
 let interval;
 
-
 //Stars
 const stars = document.querySelectorAll(".fa-star");
 let starList = [...stars];
+
+//Modal
+const model = document.querySelector(".modal");
+const playAgain = document.querySelector(".close-btn");
 
 // array for opened cards
 let openCards = [];
@@ -47,6 +53,9 @@ document.body.onload = startGame();
 
 //Shuffel and Start game 
 function startGame() {
+    //Close modal if start from completed game
+    model.style.display = "none";
+    //Shuffle function
 	cardList = shuffle(cardList);
 	//Loop to remove classes cards
 	for (let i = 0; i < cardList.length; i++) {
@@ -68,10 +77,6 @@ function startGame() {
     starList[2].style.display = "inline-block";
 };
 
-/*
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
-
 //Show/hide card toggle
 function toggleCard() {
 	this.classList.toggle("open");
@@ -79,11 +84,6 @@ function toggleCard() {
 
 };
 
-for (let i = 0; i < cardList.length; i++) {
-	cardList[i].addEventListener('click', toggleCard);
-	cardList[i].addEventListener('click', cardOpen);
-    cardList[i].addEventListener('click', endGame);
-};
 
 //Add open cards to new array and compare
 function cardOpen() {
@@ -147,13 +147,22 @@ function startTimer() {
 	}, 1000);
 };
 
+//When all cards match
 function endGame(){
-    //Stop timer when all cards match
+    //Stop timer
     if (matchedCard.length == 16){
         clearInterval(interval);
+        
+        model.style.display = "block";
     }
 };
 
-//Restart game event listener
-const restart = document.querySelector(".fa-repeat");
-restart.addEventListener('click', startGame);
+//Event listeners
+for (let i = 0; i < cardList.length; i++) {
+	cardList[i].addEventListener('click', toggleCard);
+	cardList[i].addEventListener('click', cardOpen);
+    cardList[i].addEventListener('click', endGame);
+};
+
+    playAgain.addEventListener('click', startGame);
+    restart.addEventListener('click', startGame);
